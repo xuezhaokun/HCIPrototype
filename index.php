@@ -76,6 +76,13 @@ $login_session=$row['username'];
     $(window).load(function() {
         $("#schedule-tab").click();
         $("#search-results").hide();
+        $('a#yes-add').click( function() { 
+            $("#enrollment-tab").click();
+        } );
+        $('a#yes-drop').click( function() { 
+            $("#enrollment-list").empty(); 
+            $("#enrollment-list").listview('refresh');
+        } );
     });
 
     </script>
@@ -121,7 +128,7 @@ $login_session=$row['username'];
                     <li><a id="classes-tab" href="#classes" data-ajax="false">Classes</a></li>
                     <li><a id="bills-tab" href="#bills" data-ajax="false">Bills &amp; Balances</a></li>
                     <li><a id="finances-tab" href="#finances" data-ajax="false">Finances</a></li>
-                    <li><a id="profile-tab" href="#bills" data-ajax="false">Profile</a></li>
+                    <li><a id="enrollment-tab" href="#enrollment" data-ajax="false">Enrollment Cart</a></li>
                 </ul>
             </div>
             <div id="schedule" class="ui-body-d ui-content" style="width:100%">
@@ -249,7 +256,7 @@ $login_session=$row['username'];
                     <div data-role='popup' id='addcourse' data-theme='a' data-overlay-theme='b' class='ui-content' style='max-width:340px; padding-bottom:2em;'>
                         <h3>Add Course?</h3>
                         <p>Do you want to add this course to your enrollment cart?</p>
-                        <a href='index.php' data-rel='back' class='ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini'>Yes</a>
+                        <a id="yes-add" data-rel='back' class='ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini'>Yes</a>
                         <a href='index.php' data-rel='back' class='ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini'>No</a>
                     </div>
                     <input type="submit" onclick="backToSearch()" data-theme="b" value="Back">
@@ -275,6 +282,28 @@ $login_session=$row['username'];
                 <?php
                 if(isset($login_session)){
                     echo "<p>You didn't apply for financial aid.</p>";
+                }else{
+                    echo "<p>Please login first...</p>";
+                }?>
+            </div>
+            <div id="enrollment">
+                <?php
+                if(isset($login_session)){
+                    echo "
+                     <ul id='enrollment-list' data-role='listview' data-split-icon='minus' data-split-theme='a' data-inset='true'>
+                        <li><a href='#'>
+                        <h2>COMP-150IDS</h2></a>
+                            <a href='#dropcourse' data-rel='popup' data-position-to='window' data-transition='pop'>Add Class</a>
+                        </li>
+                    </ul>
+
+
+                    <div data-role='popup' id='dropcourse' data-theme='a' data-overlay-theme='b' class='ui-content' style='max-width:340px; padding-bottom:2em;'>
+                        <h3>Drop Course?</h3>
+                        <p>Do you want to drop this course in your enrollment cart?</p>
+                        <a id='yes-drop' data-rel='back' class='ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini'>Yes</a>
+                        <a href='index.php' data-rel='back' class='ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini'>No</a>
+                    </div>";
                 }else{
                     echo "<p>Please login first...</p>";
                 }?>
