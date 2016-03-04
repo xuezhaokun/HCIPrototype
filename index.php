@@ -15,13 +15,16 @@ $login_session=$row['username'];
 <html>
 <head>
     <title>Tufts SIS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <!-- jQuery Mobile -->
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
-    
+    <!-- Include jQuery Mobile stylesheets -->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+    <!-- Include the jQuery library -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Include the jQuery Mobile library -->
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript">
 
 
@@ -49,16 +52,12 @@ $login_session=$row['username'];
 
             },
             success: function(data) {
-                //alert("data");
-                //console.log(data);
                 if (data == "success") {
-                    //alert("in");
                     window.location.replace("index.php");
                 }
                 else if (data == 'error_wrong') {
                     $("#error-message").text("invalid username or password");
                     $('input#password').val("");
-                    //return false;
                 }
             }
         });
@@ -77,10 +76,12 @@ $login_session=$row['username'];
         $("#schedule-tab").click();
         $("#search-results").hide();
         $('a#yes-add').click( function() { 
-            $("#enrollment-tab").click();
+        $("#enrollment-tab").click();
         } );
         $('a#yes-drop').click( function() { 
-            $("#enrollment-list").empty(); 
+            $("#enrollment-list").empty();
+            var message = "<li data-role='list-divider'> You dropped COMP-171 from your enrollment cart! </li>";
+            $("#enrollment-list").append(message);
             $("#enrollment-list").listview('refresh');
         } );
     });
@@ -121,8 +122,8 @@ $login_session=$row['username'];
         
     </div>
     <div role="main" class="ui-content" id="list-canvas" style="height:100%">
-        <div data-role="tabs" id="tab" style="width:100%">
-            <div data-role="navbar">
+        <div data-role="tabs" id="tab">
+            <div data-role="navbar" data-mini="true">
                 <ul>
                     <li><a id="schedule-tab" href="#schedule" data-ajax="false">Schedule</a></li>
                     <li><a id="classes-tab" href="#classes" data-ajax="false">Classes</a></li>
@@ -223,32 +224,74 @@ $login_session=$row['username'];
                     <ul data-role='listview' data-split-icon='plus' data-split-theme='a' data-inset='true'>
                         <li><a href='#'>
                         <h2>COMP-15</h2></a>
-                            <a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>Add Class</a>
+                            <?php
+                            if (!isset($login_session)) {
+                                echo "<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a' data-transition='pop'>";
+                            } else {
+                                echo "<a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>";
+                            }
+                            ?>
+                            Add Class</a>
                         </li>
 
                         <li><a href='#'>
                         <h2>COMP-150</h2></a>
-                            <a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>Add Class</a>
+                           <?php
+                            if (!isset($login_session)) {
+                                echo "<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a' data-transition='pop'>";
+                            } else {
+                                echo "<a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>";
+                            }
+                            ?>
+                            Add Class</a>
                         </li>
 
                         <li><a href='#'>
                         <h2>COMP-160</h2></a>
-                            <a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>Add Class</a>
+                            <?php
+                            if (!isset($login_session)) {
+                                echo "<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a' data-transition='pop'>";
+                            } else {
+                                echo "<a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>";
+                            }
+                            ?>
+                            Add Class</a>
                         </li>
                         
                         <li><a href='#'>
                         <h2>COMP-170</h2></a>
-                            <a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>Add Class</a>
+                            <?php
+                            if (!isset($login_session)) {
+                                echo "<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a' data-transition='pop'>";
+                            } else {
+                                echo "<a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>";
+                            }
+                            ?>
+                            Add Class</a>
                         </li>
 
                         <li><a href='#'>
                         <h2>COMP-171</h2></a>
-                            <a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>Add Class</a>
+                            <?php
+                            if (!isset($login_session)) {
+                                echo "<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a' data-transition='pop'>";
+                            } else {
+                                echo "<a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>";
+                            }
+                            ?>
+                            Add Class</a>
                         </li>
 
                         <li><a href='#'>
                         <h2>COMP-150IDS</h2></a>
-                            <a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>Add Class</a>
+                            <?php
+                            if (!isset($login_session)) {
+                                echo "<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a' data-transition='pop'>";
+                            } else {
+                                echo "<a href='#addcourse' data-rel='popup' data-position-to='window' data-transition='pop'>";
+                            }
+                            ?>
+                            Add Class</a>
                         </li>
                     </ul>
 
@@ -290,9 +333,10 @@ $login_session=$row['username'];
                 <?php
                 if(isset($login_session)){
                     echo "
-                     <ul id='enrollment-list' data-role='listview' data-split-icon='minus' data-split-theme='a' data-inset='true'>
+                     <ul id='enrollment-list'  data-divider-theme='a' data-role='listview' data-split-icon='minus' data-split-theme='a' data-inset='true'>
+                        <li data-role='list-divider'> You have successfully added this course to your enrollment cart! </li>
                         <li><a href='#'>
-                        <h2>COMP-150IDS</h2></a>
+                        <h2>COMP-171</h2></a>
                             <a href='#dropcourse' data-rel='popup' data-position-to='window' data-transition='pop'>Add Class</a>
                         </li>
                     </ul>
